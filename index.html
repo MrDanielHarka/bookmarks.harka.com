@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Bookmarks</title>
+    <style>
+      html {
+        margin-left: calc(100vw - 100%);
+        margin-right: 0;
+        font-size: 1.75rem;
+        text-align: center;
+      }
+
+      a {
+        color: #080;
+        text-decoration: none;
+      }
+
+      input {
+        border: none;
+        border-bottom: 2px solid #000;
+        font-size: 0.5rem;
+        background-color: transparent;
+      }
+
+      input:focus-visible {
+        outline: none;
+      }
+
+      #links {
+        font-size: 0.6rem;
+      }
+    </style>
+  </head>
+  <body>
+    <br />
+    <a
+      href="https://m.facebook.com/notifications.php"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >m.fb</a
+    >
+    /
+    <a
+      href="https://mbasic.facebook.com/notifications.php"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >mbasic.fb</a
+    >
+    <br />
+    <a
+      href="https://mail.google.com/mail/mu/mp/613/#tl/priority/%5Esmartlabel_personal"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >m.gm</a
+    >
+    /
+
+    <a
+      href="https://mail.google.com/mail/u/0/x/7deercwuzjxy-/f/?f=1"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >mbasic.gm</a
+    >
+    <br />
+    <a
+      href="https://www.google.com/maps/@47.5058804,19.0709506,12z"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >maps</a
+    >
+    <br />
+    <a
+      href="https://www.bible.com/bible/29/GEN.1.N11BM"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >bible</a
+    >
+    <br />
+    <a
+      href="https://www.yr.no/nb/v%C3%A6rvarsel/time-tabell/2-3054643/Ungarn/Budapest/Budapest?i=0"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >yr</a
+    >
+    /
+
+    <a
+      href="https://www.google.com/search?ie=UTF-8&source=android-browser&q=weather"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >weather</a
+    >
+    <br />
+    <a
+      href="https://lastpass.com/?ac=1&lpnorefresh=1"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      >lastpass</a
+    >
+    <br />
+    <a href="https://harka.com" target="_blank">harka.com</a>
+    <br />
+    <input type="text" id="text" />
+    <div id="links"></div>
+  </body>
+  <script>
+    let js = 0;
+    text.addEventListener('focus', () => {
+      if (!js) {
+        document.head.append(
+          Object.assign(document.createElement('script'), { src: 'js.js' })
+        );
+        js = 1;
+      }
+    });
+  </script>
+</html>
