@@ -1,28 +1,12 @@
 import fs from 'fs';
+import pkg from 'jsonpath';
 import { bookmarksToJSON } from 'bookmarks-to-json';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const jp = require('jsonpath');
-
-const content = fs.readFileSync('C:/Users/Asus/Documents/b.html', 'utf-8');
-const options = {
-  formatJSON: true,
-  spaces: 2,
-};
-
-let jsonBookmarks = JSON.parse(bookmarksToJSON(content, options));
-
-// let jsonBookmarks = JSON.parse(
-//   fs.readFileSync('./../html-to-json/bookmarks.json', 'utf-8')
-// );
-
-// console.log(jsonBookmarks);
-
-let names = jp.query(jsonBookmarks, `$..[?(@.type=="link")]`);
-
-// console.log(names);
-
-names = `const bookmarks = ${JSON.parse(JSON.stringify(JSON.stringify(names)))};
+let bookmarks = fs.readFileSync('C:/Users/Asus/Documents/b.html', 'utf-8');
+bookmarks = JSON.parse(bookmarksToJSON(bookmarks));
+bookmarks = pkg.query(bookmarks, `$..[?(@.type=="link")]`);
+bookmarks = `const bookmarks = ${JSON.parse(
+  JSON.stringify(JSON.stringify(bookmarks))
+)};
 text.addEventListener('keyup', () => {
   let urls = '', i = bookmarks.length, txt = text.value.toUpperCase();
   if (txt.length) {
@@ -42,9 +26,5 @@ text.addEventListener('keyup', () => {
   }
   links.innerHTML = urls;
 });`;
-
-fs.writeFileSync('js.js', names, 'utf-8', (err) => {
-  if (err) {
-    throw err;
-  }
-});
+fs.writeFileSync('js.js', bookmarks, 'utf-8');
+fs.unlinkSync('C:/Users/Asus/Documents/b.html');
