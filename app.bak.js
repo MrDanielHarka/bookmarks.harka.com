@@ -1,11 +1,9 @@
 import fs from 'fs';
 import pkg from 'jsonpath';
-let bookmarks = fs.readFileSync(
-  'C:/Users/Asus/AppData/Local/Vivaldi/User Data/Default/Bookmarks',
-  'utf-8'
-);
-bookmarks = JSON.parse(bookmarks);
-bookmarks = pkg.query(bookmarks, `$..[?(@.type=="url")]`);
+import { bookmarksToJSON } from 'bookmarks-to-json';
+let bookmarks = fs.readFileSync('C:/Users/Asus/Documents/b.html', 'utf-8');
+bookmarks = JSON.parse(bookmarksToJSON(bookmarks));
+bookmarks = pkg.query(bookmarks, `$..[?(@.type=="link")]`);
 bookmarks = `const bookmarks = ${JSON.parse(
   JSON.stringify(JSON.stringify(bookmarks))
 )};
@@ -15,14 +13,13 @@ text.addEventListener('keyup', () => {
     while (i--) {
       if (
         bookmarks[i].url.toUpperCase().includes(txt) ||
-        bookmarks[i].name.toUpperCase().includes(txt) ||
-        bookmarks[i].meta_info?.Nickname?.toUpperCase().includes(txt)
+        bookmarks[i].title.toUpperCase().includes(txt)
       ) {
         urls += '<br><a href="';
         urls += bookmarks[i].url;
         urls += '" rel="noreferrer noopener nofollow"';
         urls += 'tabindex="0" target="_blank">';
-        urls += bookmarks[i].name;
+        urls += bookmarks[i].title;
         urls += '</a><br>';
       }
     }
@@ -30,3 +27,4 @@ text.addEventListener('keyup', () => {
   links.innerHTML = urls;
 });`;
 fs.writeFileSync('js.js', bookmarks, 'utf-8');
+fs.unlinkSync('C:/Users/Asus/Documents/b.html');

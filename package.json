@@ -9,7 +9,6 @@
   "author": "MrDanielHarka",
   "license": "ISC",
   "dependencies": {
-    "bookmarks-to-json": "^1.0.4",
     "jsonpath": "^1.1.1"
   },
   "type": "module"
