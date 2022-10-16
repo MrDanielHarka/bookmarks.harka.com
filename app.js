@@ -1,14 +1,26 @@
 import fs from 'fs';
 import pkg from 'jsonpath';
 let bookmarks = fs.readFileSync(
-  'C:/Users/Asus/AppData/Local/Vivaldi/User Data/Default/Bookmarks',
-  'utf-8'
+  'C:/Users/Asus/AppData/Local/Vivaldi/User Data/Default/Bookmarks'
 );
+fs.writeFileSync('Bookmarks.bak', bookmarks, 'utf-8');
 bookmarks = JSON.parse(bookmarks);
 bookmarks = pkg.query(bookmarks, `$..[?(@.type=="url")]`);
-bookmarks = `const bookmarks = ${JSON.parse(
-  JSON.stringify(JSON.stringify(bookmarks))
-)};
+bookmarks = JSON.parse(JSON.stringify(bookmarks));
+for (let bookmark of bookmarks) {
+  bookmark.date_added ? delete bookmark.date_added : 0;
+  bookmark.date_last_used ? delete bookmark.date_last_used : 0;
+  bookmark.guid ? delete bookmark.guid : 0;
+  bookmark.id ? delete bookmark.id : 0;
+  bookmark.type ? delete bookmark.type : 0;
+  bookmark.meta_info?.Description ? delete bookmark.meta_info.Description : 0;
+  bookmark.meta_info?.Thumbnail ? delete bookmark.meta_info.Thumbnail : 0;
+  if (bookmark.meta_info && Object.keys(bookmark.meta_info).length === 0) {
+    delete bookmark.meta_info;
+  }
+}
+bookmarks = JSON.parse(JSON.stringify(JSON.stringify(bookmarks)));
+bookmarks = `const bookmarks = ${bookmarks};
 text.addEventListener('keyup', () => {
   let urls = '', i = bookmarks.length, txt = text.value.toUpperCase();
   if (txt.length) {
