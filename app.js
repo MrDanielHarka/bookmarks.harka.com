@@ -22,7 +22,7 @@ for (let bookmark of bookmarks) {
 bookmarks = JSON.parse(JSON.stringify(JSON.stringify(bookmarks)));
 bookmarks = `const bookmarks = ${bookmarks};
 text.addEventListener('keyup', () => {
-  let urls = '', i = bookmarks.length, txt = text.value.toUpperCase();
+  let links = '', i = bookmarks.length, txt = text.value.toUpperCase();
   if (txt.length) {
     while (i--) {
       if (
@@ -30,15 +30,12 @@ text.addEventListener('keyup', () => {
         bookmarks[i].name.toUpperCase().includes(txt) ||
         bookmarks[i].meta_info?.Nickname?.toUpperCase().includes(txt)
       ) {
-        urls += '<br><a href="';
-        urls += bookmarks[i].url;
-        urls += '" rel="noreferrer noopener nofollow"';
-        urls += 'tabindex="0" target="_blank">';
-        urls += bookmarks[i].name;
-        urls += '</a><br>';
+        links+= \`<br><a href="\${bookmarks[i].url}" target="_blank"
+        tabindex="0" rel="noreferrer noopener nofollow">
+        \${bookmarks[i].name}</a><br>\`
       }
     }
   }
-  links.innerHTML = urls;
+  urls.innerHTML = links;
 });`;
 fs.writeFileSync('js.js', bookmarks, 'utf-8');
