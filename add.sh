@@ -1,5 +1,5 @@
 node app.js
-timeout /t 5 /nobreak
+sleep 2
 git add .
 git commit -m "Update bookmarks"
 git push
