@@ -13,7 +13,7 @@ for (let bookmark of bookmarks) {
   bookmark.guid ? delete bookmark.guid : 0;
   bookmark.id ? delete bookmark.id : 0;
   bookmark.type ? delete bookmark.type : 0;
-  bookmark.meta_info?.Description ? delete bookmark.meta_info.Description : 0;
+  // bookmark.meta_info?.Description ? delete bookmark.meta_info.Description : 0;
   bookmark.meta_info?.Thumbnail ? delete bookmark.meta_info.Thumbnail : 0;
   if (bookmark.meta_info && Object.keys(bookmark.meta_info).length === 0) {
     delete bookmark.meta_info;
@@ -28,7 +28,8 @@ text.addEventListener('keyup', () => {
       if (
         bookmarks[i].url.toUpperCase().includes(txt) ||
         bookmarks[i].name.toUpperCase().includes(txt) ||
-        bookmarks[i].meta_info?.Nickname?.toUpperCase().includes(txt)
+        bookmarks[i].meta_info?.Nickname?.toUpperCase().includes(txt) ||
+        bookmarks[i].meta_info?.Description?.toUpperCase().includes(txt)
       ) {
         links+= \`<br><a href="\${bookmarks[i].url}" target="_blank"
         tabindex="0" rel="noreferrer noopener nofollow">
