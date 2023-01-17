@@ -1,3 +1,4 @@
+#!/bin/bash
 node app.js
 sleep 2
 git add .
